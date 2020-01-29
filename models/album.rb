@@ -1,4 +1,4 @@
-require('pg')
+require("pg")
 require_relative('../db/sql_runner')
 
 class Album
@@ -33,6 +33,17 @@ class Album
     artist_data = results[0]
     artist = Artist.new(artist_data)
     return artist
+  end
+
+  def delete()
+    sql = "DELETE FROM albums WHERE id = $1"
+    values = [@id]
+    SqlRunner.run(sql, values)
+  end
+
+  def self.delete_all()
+    sql = "DELETE FROM albums"
+    SqlRunner.run(sql)
   end
 
 end
